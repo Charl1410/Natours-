@@ -98,6 +98,7 @@ body {
     animation-timing-function: ease-out;
 }
 
+/*This animation moves the outdoors text from the left */
 @keyframes moveInLeft {
     0% {
         opacity: 0;
@@ -113,6 +114,8 @@ body {
         transform: translate(0);
     }
 }
+
+/*This animation moves the 'is where life happens text from the right */
 
 @keyframes moveInRight {
     0% {
@@ -130,6 +133,18 @@ body {
     }
 }
 
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
 .btn:link,
 .btn:visited {
     text-transform: uppercase;
@@ -137,21 +152,56 @@ body {
     padding: 15px 40px;
     display:inline-block;
     transition: all .2s;
+    position: relative;
 
 }
 
 .btn:hover {
-    transform: translateY(-3px)
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
 }
 
 .btn:active {
     transform: translateY(-1px);
+        box-shadow: 0 10px 10 px rgba(0,0,0, 0.2);
+
 }
 
 .btn-white {
     background-color: #fff;
     color: #777;
     border-radius: 100px;
+}
 
+/* This creates the same shape behind*/
+.btn-white::after {
+    background-color: white;
+}
 
+/* creating the same button behind for the effect, like a child of the button */
+.btn::after {
+    content: "";
+    display: inline-block; /* same as button */
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    /* absolute positioning needs a reference which is first el with relative pos */
+    position:absolute;
+    top:0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+/* the pseudo element is ontop of the */ 
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+
+}
+
+.btn-animation {
+    /* animation name, duration, ease, delay*/
+    animation: moveInBottom 0.5s ease-out .75s;
+    animation-fill-mode: backwards;
 }
